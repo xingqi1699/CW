@@ -16,7 +16,7 @@ public class TestClient implements Runnable {
 	  private BufferedReader in;
 	  private PrintWriter out;
 	  private Socket clientSocket;
-	  
+	  private int flag;
 	  TestClient(String clientName) {
 		  this.clientName = clientName;
 		 this.command = null;
@@ -24,6 +24,7 @@ public class TestClient implements Runnable {
 	  }
 
 	  public void run() {
+		  flag = 0;
 	    in = null;
 	    out = null;
 	    clientSocket = null;
@@ -43,7 +44,15 @@ public class TestClient implements Runnable {
 	      e.printStackTrace();
 	    }
 	   
-	    while (true){}
+	    try {
+			while ( (result2 = in.readLine()) != null){
+				System.out.println(clientName + " Message: " + result2);
+				flag = 0;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	  }
 	  
 	  public String getResult(){
@@ -54,18 +63,21 @@ public class TestClient implements Runnable {
 	  
 	  
 	  public void setCommand(String command){
+		  while(flag ==1 ){}
 		  this.command = command;
 		  System.out.println("Command: " + this.command);
 		  out.println(command);
-		  try {
-	   	    	result2 =in.readLine();
-	   	    	
-	   	        System.out.println(this.clientName + ": " + result2);
-	   	        
-	   	        
-	   	      } catch (IOException e) {
-	    		 e.printStackTrace();
-	   	      }
+		  flag = 1;
+		  
+//		  try {
+//	   	    	result2 =in.readLine();
+//	   	    	
+//	   	        System.out.println(this.clientName + ": " + result2);
+//	   	        
+//	   	        
+//	   	      } catch (IOException e) {
+//	    		 e.printStackTrace();
+//	   	      }
 	  }
 	  
 	  public void clientClose(){
@@ -77,6 +89,9 @@ public class TestClient implements Runnable {
 		}
 	  }
 	  
+	  public int getFlag(){
+		  return flag;
+	  }
 	  
 	}
 
