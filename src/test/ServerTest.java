@@ -1,6 +1,7 @@
-package g54ubi.chat.server;
+package test;
 
 import static org.junit.Assert.*;
+import g54ubi.chat.server.Server;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -237,14 +238,17 @@ public class ServerTest {
 			e.printStackTrace();
 		}
       }
-		client2.setCommand("IDEN Client");
-      client.setCommand("IDEN Client");
+	  client2.setCommand("IDEN Client");
       while(client2.getFlag() == 1){}
+      client.setCommand("IDEN Client");
+      
       while(client.getFlag() == 1){}
+      
+      
       String finalResult = client.getCommandResult();
       System.out.println("Client: " + finalResult);
-	    client.setCommand("QUIT");
 	    client2.setCommand("QUIT");
+	    client.setCommand("QUIT");
       assertEquals("BAD username is already taken", finalResult);
 	}
 	
@@ -414,8 +418,8 @@ public class ServerTest {
       while(client.getFlag() == 1){}
       String finalResult = client.getCommandResult();
       String finalResult2 = client2.getCommandResult();
-      System.out.println("Client1: " + finalResult);
-      System.out.println("Client2: " + finalResult2);
+      System.out.println("MesgClient1: " + finalResult);
+      System.out.println("MesgClient2: " + finalResult2);
 	    client.setCommand("QUIT");
 	    client2.setCommand("QUIT");
 	    boolean condition = finalResult.equals("OK your message has been sent") && finalResult2.equals("PM from Client1:Hello!");

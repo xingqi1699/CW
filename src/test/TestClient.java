@@ -1,4 +1,4 @@
-package g54ubi.chat.server;
+package test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
