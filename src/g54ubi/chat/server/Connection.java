@@ -42,6 +42,7 @@ public class Connection implements Runnable {
 		while(running) {
 			try {
 				line = in.readLine();
+				System.out.println(line);
 				validateMessage(line);	
 			} catch (IOException e) {
 				System.out.println("Read failed");
